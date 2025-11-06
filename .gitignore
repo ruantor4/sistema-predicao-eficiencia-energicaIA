@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Migrations (se quiser ignorar arquivos de migração gerados)
+# estoque/migrations/
+# project/migrations/
+
+# Banco de dados local
+db.sqlite3
+
+# Virtual envs
+venv/
+.venv/
+env/
+.env/
+*.env
+# Logs
+*.log
+
+# IDEs e configs locais
+.vscode/
+.idea/
+*.iml
+
+# Arquivos temporários
+*.tmp
+*.bak
+
+# Imagens de teste do projeto
+*.jpg
+*.jpeg
+*.png
+*.pdf
