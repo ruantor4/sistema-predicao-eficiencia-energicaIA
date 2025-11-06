@@ -1,0 +1,40 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Bem-vindo ao Sistema de Predição{% endblock %}
+
+{% block content %}
+<div class="container text-center py-5">
+    <div class="row justify-content-center align-items-center min-vh-75">
+        <div class="col-md-8">
+
+            <!-- Logo ou imagem principal -->
+            <img src="#"
+                 alt="Eficiência Energética" 
+                 class="img-fluid mb-4" 
+                 style="max-height: 220px;">
+
+            <!-- Título principal -->
+            <h1 class="display-5 fw-bold text-primary mb-3">
+                Bem-vindo ao Sistema de Predição de Eficiência Energética
+            </h1>
+
+            <!-- Descrição curta -->
+            <p class="lead text-muted mb-4">
+                Este sistema permite analisar e prever o consumo energético de edifícios
+                com base em suas características construtivas e arquitetônicas.
+            </p>
+
+            <!-- Botões de ação -->
+            <div class="d-flex justify-content-center gap-3">
+                <a href="#" class="btn btn-primary btn-lg px-4">
+                    Acessar Dashboard
+                </a>
+                <a href="#" class="btn btn-outline-secondary btn-lg px-4">
+                    Enviar Dados
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
