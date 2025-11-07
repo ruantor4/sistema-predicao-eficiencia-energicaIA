@@ -1,36 +1,37 @@
 {% extends 'core/base.html' %}
+{% load static %}
 
 {% block title %}Bem-vindo ao Sistema de Predição{% endblock %}
 
 {% block content %}
-<div class="container text-center py-5">
+<div class="container text-center pt-0">
     <div class="row justify-content-center align-items-center min-vh-75">
-        <div class="col-md-8">
+        <div class="col-md-10 col-lg-8" >
 
-            <!-- Logo ou imagem principal -->
-            <img src="#"
-                 alt="Eficiência Energética" 
-                 class="img-fluid mb-4" 
-                 style="max-height: 220px;">
+            <!-- Imagem principal -->
+            <img src="{% static 'core/img/home.png' %}"
+                 alt="Eficiência Energética"
+                 class="img-fluid mb-1"
+                 style="max-height: 220px; object-fit: contain;">
 
-            <!-- Título principal -->
-            <h1 class="display-5 fw-bold text-primary mb-3">
+            <!-- Título -->
+            <h2 class="display-6 fw-semibold mb-3 text-dark text-center">
                 Bem-vindo ao Sistema de Predição de Eficiência Energética
-            </h1>
+            </h2>
 
-            <!-- Descrição curta -->
-            <p class="lead text-muted mb-4">
+            <!-- Descrição -->
+            <p class="lead text-secondary mb-5">
                 Este sistema permite analisar e prever o consumo energético de edifícios
                 com base em suas características construtivas e arquitetônicas.
             </p>
 
-            <!-- Botões de ação -->
-            <div class="d-flex justify-content-center gap-3">
-                <a href="#" class="btn btn-primary btn-lg px-4">
-                    Acessar Dashboard
+            <!-- Botões -->
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <a href="#" class="btn btn-dark btn-lg px-4 shadow-sm">
+                    <i class="bi bi-speedometer2 me-2"></i> Acessar Dashboard
                 </a>
-                <a href="#" class="btn btn-outline-secondary btn-lg px-4">
-                    Enviar Dados
+                <a href="#" class="btn btn-outline-dark btn-lg px-4 shadow-sm">
+                    <i class="bi bi-upload me-2"></i> Enviar Dados
                 </a>
             </div>
 
