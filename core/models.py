@@ -1,8 +1,8 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 
 class LogSystem(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null = True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null = True)
     action = models.CharField(max_length = 100)
     timestamp = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length = 50)
