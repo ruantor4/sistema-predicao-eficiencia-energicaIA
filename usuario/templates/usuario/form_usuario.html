@@ -1,0 +1,105 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}
+    {% if usuario %}Editar Usuário{% else %}Novo Usuário{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-sm border-0 rounded-3 px-5">
+                <div class="card-body p-5">
+
+                    <!-- Título dinâmico -->
+                    <h3 class="fw-semibold text-dark mb-4 text-center">
+                        {% if usuario %}
+                            <i class="bi bi-pencil-square me-2"></i> Editar Usuário
+                        {% else %}
+                            <i class="bi bi-person-plus-fill me-2"></i> Cadastrar Novo Usuário
+                        {% endif %}
+                    </h3>
+
+                    <!-- Formulário -->
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label for="id_nome_completo" class="form-label fw-semibold">Nome Completo</label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                id="id_nome_completo"
+                                name="nome"
+                                placeholder="Digite o nome completo"
+                                value="{{ usuario.nome|default:'' }}"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_email" class="form-label fw-semibold">E-mail</label>
+                            <input 
+                                type="email" 
+                                class="form-control" 
+                                id="id_email" 
+                                name="email" 
+                                placeholder="exemplo@email.com"
+                                value="{{ usuario.email|default:'' }}" 
+                                required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="id_telefone" class="form-label fw-semibold">Telefone</label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                id="id_telefone" 
+                                name="telefone" 
+                                placeholder="(99) 99999-9999"
+                                value="{{ usuario.telefone|default:'' }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_username" class="form-label fw-semibold">Username</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="id_username"
+                                name="username"
+                                placeholder="Digite o username"
+                                value="{{ usuario.username|default:'' }}"
+                                required>
+                        </div>
+
+                         <div class="mb-3">
+                            <label for="id_senha" class="form-label fw-semibold">Senha</label>
+                            <input
+                                type="password"
+                                class="form-control"
+                                id="id_senha"
+                                name="senha"
+                                placeholder="Digite o username"
+                                value="{{ usuario.senha|default:'' }}">
+                        </div>
+
+                        <!-- Botões -->
+                        <div class="d-flex justify-content-between mt-5">
+                            <a href="{% url 'listar_usuarios' %}" class="btn btn-outline-secondary px-4">
+                                <i class="bi bi-arrow-left me-1"></i> Voltar
+                            </a>
+                            <button type="submit" class="btn btn-dark px-4">
+                                {% if usuario %}
+                                    <i class="bi bi-check2-circle me-2"></i> Atualizar
+                                {% else %}
+                                    <i class="bi bi-save me-2"></i> Salvar Usuário
+                                {% endif %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

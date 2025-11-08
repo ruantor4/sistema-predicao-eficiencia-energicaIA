@@ -3,7 +3,7 @@ from django.db import models
 
 class Usuario(AbstractUser):
 
-    nome = models.CharField('Nome Completo', max_length=100)
+    nome = models.CharField('Nome Completo', max_length=255)
     telefone = models.CharField('Telefone', max_length=20, blank=True, null=True)
 
     def __str__(self):

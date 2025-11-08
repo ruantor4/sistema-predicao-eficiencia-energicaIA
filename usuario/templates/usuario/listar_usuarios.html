@@ -9,7 +9,7 @@
         <h2 class="fw-semibold text-dark mb-0 mt-0">
             <i class="bi bi-people-fill me-2"></i> Lista de Usuários
         </h2>
-        <a href="#" class="btn btn-dark">
+        <a href="{% url 'criar_usuario' %}" class="btn btn-dark">
             <i class="bi bi-person-plus me-2"></i> Novo Usuário
         </a>
     </div>
@@ -36,12 +36,11 @@
                     <td>{{ usuario.email }}</td>
                     <td>{{ usuario.telefone }}</td>
                     <td class="text-center">
-                        <a href="#" class="btn btn-sm btn-outline-primary me-2">
+                        <a href="{% url 'editar_usuario' usuario.id %}" class="btn btn-sm btn-outline-primary me-2">
                             <i class="bi bi-pencil-square">Editar</i>
                         </a>
-                        <a href="#"
-                           class="btn btn-sm btn-outline-danger"
-                           onclick="return confirm('Tem certeza que deseja excluir este usuário?');">
+                        <a href="{% url 'deletar_usuario' usuario.id %}"
+                           class="btn btn-sm btn-outline-danger">
                             <i class="bi bi-trash">Excluir</i>
                         </a>
                     </td>

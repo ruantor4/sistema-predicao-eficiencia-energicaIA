@@ -1,0 +1,13 @@
+{% extends 'core/base.html' %}
+{% block title %}Excluir Usuário{% endblock %}
+
+{% block content %}
+<div class="card p-4 shadow-sm">
+    <h4>Tem certeza que deseja excluir o usuário <strong>{{ users.username }}</strong>?</h4>
+    <form method="post" class="mt-3">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Confirmar</button>
+        <a href="{% url 'listar_usuarios' %}" class="btn btn-outline-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}
