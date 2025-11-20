@@ -1,4 +1,4 @@
-# Sistema de Gestão - Django
+# Sistema de Predição Energética – Django + IA
 
 Aplicação desenvolvida em **[Django](https://docs.djangoproject.com/en/stable/)** para previsão de cargas térmicas (aquecimento e resfriamento) de edificações, utilizando um modelo de **Machine Learning** treinado previamente.  
 Possui autenticação completa, registro de logs, dashboard analítico com gráficos e exportação em PDF.
