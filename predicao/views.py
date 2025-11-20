@@ -1,3 +1,5 @@
+from msilib.schema import ListView
+
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse
@@ -61,3 +63,38 @@ class CriarPredicaoView(LoginRequiredMixin, View):
             report_log(request.user, "Criar Predição", "ERROR", f"Erro inesperado: {e}")
             messages.error(request, "Erro ao realizar predição.")
             return redirect('criar_predicao')
+
+class ListarPredicaoView(LoginRequiredMixin, View):
+    """
+    View responsável por listar todas as predições realizadas pelo usuário logado.
+    A listagem exibe as variáveis de entrada, os resultados do modelo e a data
+    de realização da predição, ordenadas da mais recente para a mais antiga.
+
+    Métodos:
+        get(request):
+            Consulta e apresenta o histórico de predições do usuário.
+    """
+    def get(self, request: HttpRequest) -> HttpResponse:
+        """
+        Retorna a página contendo o histórico das predições realizadas pelo
+        usuário autenticado.
+
+        Args:
+            request (HttpRequest): Requisição HTTP.
+
+        Returns:
+            HttpResponse: Página HTML contendo a tabela de predições.
+        """
+        try:
+            predicoes = Predicao.objects.filter(
+                usuario=request.user,
+            ).order_by('-data_criacao')
+
+            return render(request, "predicao/listar_predicao.html", {
+                "predicoes":predicoes
+            })
+
+        except Exception as e:
+            report_log(request.user, "Listar Predições", "ERROR", f"Erro inesperado: {e}")
+            messages.error(request, "Erro ao carregar o histórico de predições.")
+            return redirect('home')
