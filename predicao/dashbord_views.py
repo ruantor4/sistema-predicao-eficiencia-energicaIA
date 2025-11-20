@@ -8,6 +8,7 @@ from django.views import View
 
 from core.utils import report_log
 from predicao.models import Predicao
+from predicao.services.pdf_service import PredicaoPDFService
 
 
 class DashboadPredicaoView(LoginRequiredMixin, View):
@@ -113,3 +114,41 @@ class DashboadPredicaoView(LoginRequiredMixin, View):
             )
             messages.error(request, "Erro ao carregar os dados do dashboard.")
             return redirect("home")
+
+class PredicaoPDFView(View):
+    """
+    View responsável pelo download do PDF contendo os dados do dashboard avançado.
+    """
+
+    def get(self, request):
+        try:
+            predicoes = Predicao.objects.filter(usuario=request.user).order_by("data_criacao")
+
+            if not predicoes.exists():
+                messages.info(request, "Nenhuma predição disponível para gerar PDF.")
+                return redirect("dashboard_predicao")
+
+            aquecimento = [p.carga_aquecimento for p in predicoes]
+            resfriamento = [p.carga_resfriamento for p in predicoes]
+
+            stats = {
+                "Total de Predições": predicoes.count(),
+                "Maior Aquecimento": round(max(aquecimento), 2),
+                "Menor Resfriamento": round(min(resfriamento), 2),
+                "Desvio Padrão (Aquecimento)": round(stdev(aquecimento), 2) if len(aquecimento) > 1 else 0,
+                "Mediana Geral": round(median(aquecimento + resfriamento), 2),
+            }
+
+            # === Cabeçalho da resposta ===
+            response = HttpResponse(content_type="application/pdf")
+            response["Content-Disposition"] = "attachment; filename=dashboard_predicoes.pdf"
+
+            PredicaoPDFService.gerar_pdf(response, stats, predicoes)
+
+            report_log(request.user, "PDF Predições", "INFO", "PDF gerado com sucesso.")
+            return response
+
+        except Exception as e:
+            report_log(request.user, "PDF Predições", "ERROR", f"Erro ao gerar PDF: {e}")
+            messages.error(request, "Erro ao gerar o PDF das predições.")
+            return redirect("dashboard_predicao")
