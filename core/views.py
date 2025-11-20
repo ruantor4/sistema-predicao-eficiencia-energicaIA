@@ -7,7 +7,7 @@ from django.views import View
 from core.utils import report_log
 
 
-class HomeView(LoginRequiredMixin, View):
+class HomeView(View):
 
     login_url = '/login/'
 

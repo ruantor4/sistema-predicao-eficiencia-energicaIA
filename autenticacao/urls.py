@@ -6,7 +6,7 @@ from autenticacao.views import LoginView, LogoutView, SenhaResetView, ConfirmarS
 urlpatterns = [
 
     # Rota para Login
-    path('', LoginView.as_view(), name='login'),
+    path('login/', LoginView.as_view(), name='login'),
 
     path('logout/', LogoutView.as_view(), name='logout'),
 

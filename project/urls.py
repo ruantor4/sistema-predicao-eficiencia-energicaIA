@@ -24,11 +24,11 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
 
-    path('core/', include('core.urls')),
+    path('', include('core.urls')),
 
     path('usuario/', include('usuario.urls')),
 
-    path('', include('autenticacao.urls')),
+    path('auth/', include('autenticacao.urls')),
 
     path("predicao/", include("predicao.urls")),
 ]

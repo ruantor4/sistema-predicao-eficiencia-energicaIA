@@ -55,17 +55,17 @@ class LoginView(View):
 class LogoutView(View):
     def get(self, request: HttpRequest) -> HttpResponse:
         try:
-            username = request.user.username if request.user.is_authenticated else 'Usuário desconhecido'
             if request.user.is_authenticated:
+                username = request.user.username
                 logout(request)
                 messages.error(request, f'{username} fez logout com sucesso!.')
-                return redirect('login')
+                return redirect('home')
 
         except Exception as e:
             report_log(request.user if request.user.is_authenticated else None, "Logout", "ERROR",
                        f"Erro inesperado: {e}")
             messages.error(request, "Erro inesperado ao encerrar a sessão.")
-            return redirect('login')
+            return redirect('home')
 
 class SenhaResetView(View):
 

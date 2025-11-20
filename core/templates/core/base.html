@@ -13,8 +13,10 @@
             <a class="navbar-brand" href="{% url 'home' %}">Sw-Predição</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto">
+                {% if user.is_authenticated %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'listar_predicoes' %}">Predição e eficiência</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'listar_usuarios' %}">Gestão de Usuários</a></li>
+                {% endif %}
                 </ul>
                 <ul class="navbar-nav">
 
