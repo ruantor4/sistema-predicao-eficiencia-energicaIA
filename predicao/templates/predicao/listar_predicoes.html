@@ -10,7 +10,7 @@
             <i class="bi bi-list-check me-2"></i> Histórico de Predições
         </h2>
 
-        <a href="{% url 'realizar_predicao' %}" class="btn btn-dark">
+        <a href="{% url 'criar_predicao' %}" class="btn btn-dark">
             <i class="bi bi-plus-circle me-1"></i> Nova Predição
         </a>
     </div>
@@ -30,16 +30,16 @@
             </thead>
 
             <tbody>
-                {% for p in predicoes %}
+                {% for predicao in predicoes %}
                 <tr>
-                    <td>{{ p.id }}</td>
-                    <td>{{ p.compacidade_relativa }}</td>
-                    <td>{{ p.altura_total }}</td>
-                    <td>{{ p.carga_aquecimento|floatformat:2 }}</td>
-                    <td>{{ p.carga_resfriamento|floatformat:2 }}</td>
+                    <td>{{ predicao.id }}</td>
+                    <td>{{ predicao.compacidade_relativa }}</td>
+                    <td>{{ predicao.altura_total }}</td>
+                    <td>{{ predicao.carga_aquecimento|floatformat:2 }}</td>
+                    <td>{{ predicao.carga_resfriamento|floatformat:2 }}</td>
 
                     <td class="text-center">
-                        <form method="post" action="{% url 'excluir_predicao' p.id %}">
+                        <form method="post" action="{% url 'excluir_predicao' predicao.id %}">
                             {% csrf_token %}
                             <button class="btn btn-sm btn-outline-danger">
                                 <i class="bi bi-trash">Excluir</i>
