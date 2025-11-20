@@ -1,0 +1,202 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+
+    <!-- Título e Ações -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-semibold text-dark mb-0">
+            <i class="bi bi-speedometer2 me-2"></i> Dashboard
+        </h2>
+
+        <div class="d-flex gap-2">
+            <a href="{% url 'criar_predicao' %}" class="btn btn-dark">
+                <i class="bi bi-plus-circle me-1"></i> Nova Predição
+            </a>
+
+            <a href="#" class="btn btn-outline-dark">
+                <i class="bi bi-file-earmark-pdf me-1"></i> Baixar PDF
+            </a>
+        </div>
+    </div>
+
+    <!-- ================================ -->
+    <!-- CARDS AVANÇADOS -->
+    <!-- ================================ -->
+    <div class="row mb-4">
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm border-0 text-center p-3">
+                <h6 class="fw-semibold">Total Predições</h6>
+                <h3 class="fw-bold">{{ total }}</h3>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm border-0 text-center p-3">
+                <h6 class="fw-semibold">Maior Aquecimento</h6>
+                <h3 class="fw-bold">{{ maior_aq }}</h3>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm border-0 text-center p-3">
+                <h6 class="fw-semibold">Menor Resfriamento</h6>
+                <h3 class="fw-bold">{{ menor_resf }}</h3>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm border-0 text-center p-3">
+                <h6 class="fw-semibold">Desvio Padrão</h6>
+                <h4 class="fw-bold">{{ desvio_padrao }}</h4>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================ -->
+    <!-- LINHA 1: DOIS GRÁFICOS MENORES -->
+    <!-- ================================ -->
+    <div class="row mb-4">
+        <!-- Gráfico Evolução -->
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-body">
+                    <h6 class="fw-semibold text-center mb-3">Evolução das Predições</h6>
+                    <canvas id="graficoLinha"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gráfico por Orientação -->
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-body">
+                    <h6 class="fw-semibold text-center mb-3">Média por Orientação</h6>
+                    <canvas id="graficoBarras"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================ -->
+    <!-- LINHA 2: DOIS GRÁFICOS MENORES -->
+    <!-- ================================ -->
+    <div class="row mb-4">
+
+        <!-- Dispersão Aquecimento vs Altura -->
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-body">
+                    <h6 class="fw-semibold text-center mb-3">Aquecimento x Altura</h6>
+                    <canvas id="graficoScatterAq"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dispersão Resfriamento vs Área -->
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-body">
+                    <h6 class="fw-semibold text-center mb-3">Resfriamento x Área</h6>
+                    <canvas id="graficoScatterResf"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ChartJS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    /* =============================
+       DADOS DO BACKEND
+    ============================== */
+
+    const labels = {{ labels|safe }};
+    const dadosAquecimento = {{ aquecimento|safe }};
+    const dadosResfriamento = {{ resfriamento|safe }};
+    const orientLabels = {{ orientacoes_labels|safe }};
+    const orientMedias = {{ orientacoes_medias|safe }};
+    const scatterAq = {{ scatter_aq|safe }};
+    const scatterResf = {{ scatter_resf|safe }};
+
+    /* =============================
+       GRÁFICO DE LINHA
+    ============================== */
+    new Chart(document.getElementById("graficoLinha"), {
+        type: "line",
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: "Aquecimento",
+                    data: dadosAquecimento,
+                    borderColor: "#000",
+                    backgroundColor: "transparent",
+                    tension: 0.3
+                },
+                {
+                    label: "Resfriamento",
+                    data: dadosResfriamento,
+                    borderColor: "#6c757d",
+                    backgroundColor: "transparent",
+                    tension: 0.3
+                }
+            ]
+        }
+    });
+
+    /* =============================
+       GRÁFICO DE BARRAS
+    ============================== */
+    new Chart(document.getElementById("graficoBarras"), {
+        type: "bar",
+        data: {
+            labels: orientLabels,
+            datasets: [{
+                label: "Média Orientação",
+                data: orientMedias,
+                backgroundColor: "#212529"
+            }]
+        }
+    });
+
+    /* =============================
+       SCATTER AQ x ALTURA
+    ============================== */
+    new Chart(document.getElementById("graficoScatterAq"), {
+        type: 'scatter',
+        data: {
+            datasets: [{
+                label: "Aquecimento",
+                data: scatterAq,
+                borderColor: "#000",
+                backgroundColor: "#000"
+            }]
+        }
+    });
+
+    /* =============================
+       SCATTER RESF x ÁREA
+    ============================== */
+    new Chart(document.getElementById("graficoScatterResf"), {
+        type: 'scatter',
+        data: {
+            datasets: [{
+                label: "Resfriamento",
+                data: scatterResf,
+                borderColor: "#6c757d",
+                backgroundColor: "#6c757d"
+            }]
+        }
+    });
+
+</script>
+
+{% endblock %}

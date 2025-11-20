@@ -54,7 +54,7 @@ class CriarPredicaoView(LoginRequiredMixin, View):
             )
 
             report_log(request.user, "Criar Predição - POST", "INFO", "Predição realizada com sucesso.")
-            return render(request, "predicao/resultado.html", {
+            return render(request, "predicao/resultado_predicao.html", {
             "predicao": predicao,
             "carga_aquecimento": carga_aq,
             "carga_resfriamento": carga_resf
