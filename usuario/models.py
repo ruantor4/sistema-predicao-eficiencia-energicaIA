@@ -10,6 +10,6 @@ class Usuario(AbstractUser):
         return self.nome or self.username
 
     class Meta:
-        db_table = 'usuario'
+
         verbose_name = 'Usuário'
         verbose_name_plural = 'Usuários'

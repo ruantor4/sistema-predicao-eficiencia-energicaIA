@@ -1,7 +1,7 @@
 
 from django.urls import path
 
-from autenticacao.views import LoginView, LogoutView
+from autenticacao.views import LoginView, LogoutView, SenhaResetView, ConfirmarSenhaResetView
 
 urlpatterns = [
 
@@ -10,5 +10,7 @@ urlpatterns = [
 
     path('logout/', LogoutView.as_view(), name='logout'),
 
+    path('reset_senha/', SenhaResetView.as_view(), name='reset_senha'),
 
+    path('reset_senha/<uidb64>/<token>/', ConfirmarSenhaResetView.as_view(), name='confirm_reset_senha')
 ]

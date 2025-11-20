@@ -14,6 +14,12 @@
             <label>Senha</label>
             <input type="password" name="password" class="form-control" required>
         </div>
+        <!-- Link Esqueci minha senha -->
+            <div class="text-end mb-3">
+                <a href="{% url 'reset_senha' %}" class="text-muted small text-decoration-none hover-underline">
+                    <i class="bi bi-key me-1"></i> Esqueci minha senha
+                </a>
+            </div>
         <button type="submit" class="btn btn-dark w-100">Entrar</button>
     </form>
 </div>

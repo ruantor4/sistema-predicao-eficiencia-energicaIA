@@ -5,7 +5,7 @@ from core.utils import report_log
 from usuario.models import Usuario
 
 
-def validar_usuario(request, username: str, email: str) -> bool:
+def validar_usuario(request, username: str, email: str, usuario_id: int = None) -> bool:
     try:
         username = username.strip()
         email = email.strip().lower()
@@ -14,11 +14,19 @@ def validar_usuario(request, username: str, email: str) -> bool:
             messages.error(request, "Todos os campos são obrigatórios.")
             return False
 
-        if Usuario.objects.filter(username=username).exists():
+        usuario_valid = Usuario.objects.filter(username=username)
+        if usuario_id:
+            usuario_valid = usuario_valid.exclude(id=usuario_id)
+
+        if usuario_valid.exists():
             messages.error(request, "Já existe um usuário com este nome.")
             return False
 
-        if Usuario.objects.filter(email=email).exists():
+        email_valid = Usuario.objects.filter(email=email)
+        if usuario_id:
+            email_valid = email_valid.exclude(id=usuario_id)
+
+        if email_valid.exists():
             messages.error(request, "Este e-mail já está em uso.")
             return False
 

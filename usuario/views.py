@@ -92,7 +92,7 @@ class EditarUsuarioView(LoginRequiredMixin, View):
         telefone = request.POST.get("telefone", '').strip()
         senha = request.POST.get("senha", '').strip()
 
-        if not validar_usuario(request, username,email):
+        if not validar_usuario(request, username,email, usuario_id=usuario_id):
             return redirect('editar_usuario', usuario_id=usuario_id)
 
         if senha and not validar_senha(request, senha):

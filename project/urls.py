@@ -29,4 +29,6 @@ urlpatterns = [
     path('usuario/', include('usuario.urls')),
 
     path('', include('autenticacao.urls')),
+
+    path("predicao/", include("predicao.urls")),
 ]

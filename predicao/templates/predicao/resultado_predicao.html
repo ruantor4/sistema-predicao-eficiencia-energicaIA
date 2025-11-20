@@ -1,10 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Resultado da Predição{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-6">
+            <div class="card shadow-sm border-0 rounded-3 px-4 text-center">
+                <div class="card-body p-4">
+
+                    <h3 class="fw-semibold text-dark mb-4">
+                        <i class="bi bi-graph-up-arrow me-2"></i>
+                        Resultado da Predição
+                    </h3>
+
+                    <div class="alert alert-dark py-4">
+                        <h5 class="fw-semibold mb-1">Carga de Aquecimento</h5>
+                        <p class="fs-4">{{ aquecimento|floatformat:2 }}</p>
+
+                        <h5 class="fw-semibold mt-3 mb-1">Carga de Resfriamento</h5>
+                        <p class="fs-4">{{ resfriamento|floatformat:2 }}</p>
+                    </div>
+
+                    <div class="d-flex justify-content-center gap-3 mt-4">
+                        <a href="{% url 'realizar_predicao' %}" class="btn btn-dark px-4">
+                            <i class="bi bi-arrow-repeat me-1"></i> Nova Predição
+                        </a>
+
+                        <a href="{% url 'listar_predicoes' %}" class="btn btn-outline-dark px-4">
+                            <i class="bi bi-list-ul me-1"></i> Ver Histórico
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
