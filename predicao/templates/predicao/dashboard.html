@@ -60,12 +60,22 @@
     <!-- LINHA 1: DOIS GRÁFICOS MENORES -->
     <!-- ================================ -->
     <div class="row mb-4">
+
         <!-- Gráfico Evolução -->
         <div class="col-md-6">
             <div class="card shadow-sm border-0 mb-4">
                 <div class="card-body">
                     <h6 class="fw-semibold text-center mb-3">Evolução das Predições</h6>
                     <canvas id="graficoLinha"></canvas>
+
+                    <!-- INSIGHTS DO GRÁFICO 1 -->
+                    <div class="mt-3">
+                        <p class="fw-bold text-dark">Insight Preditivo:</p>
+                        <p class="text-muted">{{ insight1_pred }}</p>
+
+                        <p class="fw-bold text-dark">Observação Automática:</p>
+                        <p class="text-muted">{{ insight1_auto }}</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -76,6 +86,15 @@
                 <div class="card-body">
                     <h6 class="fw-semibold text-center mb-3">Média por Orientação</h6>
                     <canvas id="graficoBarras"></canvas>
+
+                    <!-- INSIGHTS DO GRÁFICO 2 -->
+                    <div class="mt-3">
+                        <p class="fw-bold text-dark">Insight Preditivo:</p>
+                        <p class="text-muted">{{ insight2_pred }}</p>
+
+                        <p class="fw-bold text-dark">Observação Automática:</p>
+                        <p class="text-muted">{{ insight2_auto }}</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -92,6 +111,15 @@
                 <div class="card-body">
                     <h6 class="fw-semibold text-center mb-3">Aquecimento x Altura</h6>
                     <canvas id="graficoScatterAq"></canvas>
+
+                    <!-- INSIGHTS DO GRÁFICO 3 -->
+                    <div class="mt-3">
+                        <p class="fw-bold text-dark">Insight Preditivo:</p>
+                        <p class="text-muted">{{ insight3_pred }}</p>
+
+                        <p class="fw-bold text-dark">Observação Automática:</p>
+                        <p class="text-muted">{{ insight3_auto }}</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -102,10 +130,62 @@
                 <div class="card-body">
                     <h6 class="fw-semibold text-center mb-3">Resfriamento x Área</h6>
                     <canvas id="graficoScatterResf"></canvas>
+
+                    <!-- INSIGHTS DO GRÁFICO 4 -->
+                    <div class="mt-3">
+                        <p class="fw-bold text-dark">Insight Preditivo:</p>
+                        <p class="text-muted">{{ insight4_pred }}</p>
+
+                        <p class="fw-bold text-dark">Observação Automática:</p>
+                        <p class="text-muted">{{ insight4_auto }}</p>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <!-- INSIGHTS AUTOMÁTICOS (GERAIS) -->
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-body">
+                    <h6 class="fw-semibold mb-3 text-dark">
+                        <i class="bi bi-lightbulb me-2"></i> Insights Automáticos Gerais
+                    </h6>
+
+                    {% if insights_basicos %}
+                        <ul class="list-group">
+                            {% for texto in insights_basicos %}
+                                <li class="list-group-item">{{ texto }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-muted">Nenhum insight disponível.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- INSIGHTS PREDITIVOS (GERAIS) -->
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-body">
+                    <h6 class="fw-semibold mb-3 text-dark">
+                        <i class="bi bi-cpu me-2"></i> Insights Preditivos Gerais (IA)
+                    </h6>
+
+                    {% if insights_preditivos %}
+                        <ul class="list-group">
+                            {% for texto in insights_preditivos %}
+                                <li class="list-group-item">{{ texto }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-muted">Modelo ainda não possui dados suficientes.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+    </div>
     </div>
 
 </div>
@@ -114,10 +194,6 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-    /* =============================
-       DADOS DO BACKEND
-    ============================== */
-
     const labels = {{ labels|safe }};
     const dadosAquecimento = {{ aquecimento|safe }};
     const dadosResfriamento = {{ resfriamento|safe }};
@@ -126,9 +202,6 @@
     const scatterAq = {{ scatter_aq|safe }};
     const scatterResf = {{ scatter_resf|safe }};
 
-    /* =============================
-       GRÁFICO DE LINHA
-    ============================== */
     new Chart(document.getElementById("graficoLinha"), {
         type: "line",
         data: {
@@ -152,9 +225,6 @@
         }
     });
 
-    /* =============================
-       GRÁFICO DE BARRAS
-    ============================== */
     new Chart(document.getElementById("graficoBarras"), {
         type: "bar",
         data: {
@@ -167,9 +237,6 @@
         }
     });
 
-    /* =============================
-       SCATTER AQ x ALTURA
-    ============================== */
     new Chart(document.getElementById("graficoScatterAq"), {
         type: 'scatter',
         data: {
@@ -182,9 +249,6 @@
         }
     });
 
-    /* =============================
-       SCATTER RESF x ÁREA
-    ============================== */
     new Chart(document.getElementById("graficoScatterResf"), {
         type: 'scatter',
         data: {
