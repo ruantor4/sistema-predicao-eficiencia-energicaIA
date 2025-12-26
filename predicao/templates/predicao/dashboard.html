@@ -24,7 +24,7 @@
     </div>
 
     <!-- ================================ -->
-    <!-- CARDS AVANÇADOS -->
+    <!-- CARDS -->
     <!-- ================================ -->
     <div class="row mb-4">
         <div class="col-md-3 mb-3">
@@ -57,98 +57,70 @@
     </div>
 
     <!-- ================================ -->
-    <!-- LINHA 1: DOIS GRÁFICOS MENORES -->
+    <!-- GRÁFICOS -->
     <!-- ================================ -->
     <div class="row mb-4">
 
-        <!-- Gráfico Evolução -->
         <div class="col-md-6">
             <div class="card shadow-sm border-0 mb-4">
                 <div class="card-body">
-                    <h6 class="fw-semibold text-center mb-3">Evolução das Predições</h6>
+                    <h6 class="fw-semibold text-center mb-3">
+                        Evolução das Predições
+                    </h6>
                     <canvas id="graficoLinha"></canvas>
-
-                    <!-- INSIGHTS DO GRÁFICO 1 -->
-                    <div class="mt-3">
-                        <p class="fw-bold text-dark">Insight Preditivo:</p>
-                        <p class="text-muted">{{ insight1_pred }}</p>
-
-                        <p class="fw-bold text-dark">Observação Automática:</p>
-                        <p class="text-muted">{{ insight1_auto }}</p>
-                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Gráfico por Orientação -->
         <div class="col-md-6">
             <div class="card shadow-sm border-0 mb-4">
                 <div class="card-body">
-                    <h6 class="fw-semibold text-center mb-3">Média por Orientação</h6>
+                    <h6 class="fw-semibold text-center mb-3">
+                        Média por Orientação
+                    </h6>
                     <canvas id="graficoBarras"></canvas>
-
-                    <!-- INSIGHTS DO GRÁFICO 2 -->
-                    <div class="mt-3">
-                        <p class="fw-bold text-dark">Insight Preditivo:</p>
-                        <p class="text-muted">{{ insight2_pred }}</p>
-
-                        <p class="fw-bold text-dark">Observação Automática:</p>
-                        <p class="text-muted">{{ insight2_auto }}</p>
-                    </div>
                 </div>
             </div>
         </div>
+
+    </div>
+
+    <div class="row mb-4">
+
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-body">
+                    <h6 class="fw-semibold text-center mb-3">
+                        Aquecimento x Altura
+                    </h6>
+                    <canvas id="graficoScatterAq"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-body">
+                    <h6 class="fw-semibold text-center mb-3">
+                        Resfriamento x Área
+                    </h6>
+                    <canvas id="graficoScatterResf"></canvas>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <!-- ================================ -->
-    <!-- LINHA 2: DOIS GRÁFICOS MENORES -->
+    <!-- INSIGHTS -->
     <!-- ================================ -->
     <div class="row mb-4">
 
-        <!-- Dispersão Aquecimento vs Altura -->
-        <div class="col-md-6">
-            <div class="card shadow-sm border-0 mb-4">
-                <div class="card-body">
-                    <h6 class="fw-semibold text-center mb-3">Aquecimento x Altura</h6>
-                    <canvas id="graficoScatterAq"></canvas>
-
-                    <!-- INSIGHTS DO GRÁFICO 3 -->
-                    <div class="mt-3">
-                        <p class="fw-bold text-dark">Insight Preditivo:</p>
-                        <p class="text-muted">{{ insight3_pred }}</p>
-
-                        <p class="fw-bold text-dark">Observação Automática:</p>
-                        <p class="text-muted">{{ insight3_auto }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Dispersão Resfriamento vs Área -->
-        <div class="col-md-6">
-            <div class="card shadow-sm border-0 mb-4">
-                <div class="card-body">
-                    <h6 class="fw-semibold text-center mb-3">Resfriamento x Área</h6>
-                    <canvas id="graficoScatterResf"></canvas>
-
-                    <!-- INSIGHTS DO GRÁFICO 4 -->
-                    <div class="mt-3">
-                        <p class="fw-bold text-dark">Insight Preditivo:</p>
-                        <p class="text-muted">{{ insight4_pred }}</p>
-
-                        <p class="fw-bold text-dark">Observação Automática:</p>
-                        <p class="text-muted">{{ insight4_auto }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- INSIGHTS AUTOMÁTICOS (GERAIS) -->
         <div class="col-md-6">
             <div class="card shadow-sm border-0 mb-4">
                 <div class="card-body">
                     <h6 class="fw-semibold mb-3 text-dark">
-                        <i class="bi bi-lightbulb me-2"></i> Insights Automáticos Gerais
+                        <i class="bi bi-lightbulb me-2"></i> Insights Automáticos
                     </h6>
 
                     {% if insights_basicos %}
@@ -164,12 +136,11 @@
             </div>
         </div>
 
-        <!-- INSIGHTS PREDITIVOS (GERAIS) -->
         <div class="col-md-6">
             <div class="card shadow-sm border-0 mb-4">
                 <div class="card-body">
                     <h6 class="fw-semibold mb-3 text-dark">
-                        <i class="bi bi-cpu me-2"></i> Insights Preditivos Gerais (IA)
+                        <i class="bi bi-cpu me-2"></i> Insights Preditivos (IA)
                     </h6>
 
                     {% if insights_preditivos %}
@@ -185,7 +156,6 @@
             </div>
         </div>
 
-    </div>
     </div>
 
 </div>
@@ -211,14 +181,12 @@
                     label: "Aquecimento",
                     data: dadosAquecimento,
                     borderColor: "#000",
-                    backgroundColor: "transparent",
                     tension: 0.3
                 },
                 {
                     label: "Resfriamento",
                     data: dadosResfriamento,
                     borderColor: "#6c757d",
-                    backgroundColor: "transparent",
                     tension: 0.3
                 }
             ]
@@ -230,7 +198,7 @@
         data: {
             labels: orientLabels,
             datasets: [{
-                label: "Média Orientação",
+                label: "Média por Orientação",
                 data: orientMedias,
                 backgroundColor: "#212529"
             }]
@@ -243,7 +211,6 @@
             datasets: [{
                 label: "Aquecimento",
                 data: scatterAq,
-                borderColor: "#000",
                 backgroundColor: "#000"
             }]
         }
@@ -255,12 +222,10 @@
             datasets: [{
                 label: "Resfriamento",
                 data: scatterResf,
-                borderColor: "#6c757d",
                 backgroundColor: "#6c757d"
             }]
         }
     });
-
 </script>
 
 {% endblock %}
